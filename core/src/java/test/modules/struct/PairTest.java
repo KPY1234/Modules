@@ -1,10 +1,10 @@
-package test.struct;
+package modules.struct;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import main.struct.Pair;
+import modules.struct.Pair;
 
 
 public class PairTest {

@@ -1,4 +1,4 @@
-package main.struct;
+package modules.struct;
 
 public class Pair<L,R>{
 
