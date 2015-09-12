@@ -12,29 +12,19 @@ import modules.reader.CSVReader;
 public class CSVReaderTest {
 	
 	
-	@Test
+	@Test(expected=IndexOutOfBoundsException.class)
 	public void readTest() {
-	
 		CSVReader csvr = new CSVReader();
-		
 		try {
-			csvr.read("./TestData/CSVReaderTest.csv", 1);
-			String correctContent = "aa,bb,cc\n11,22,33,44\n\nJack,Rock\n12345,789,"
-					+ "4,33\nqq,ww,ee\n";
-			assertEquals(correctContent, csvr.getContent());
+			csvr.read("./TestData/CSVReaderTest.csv", 5);
+			assertEquals("12345", csvr.getContentTuples().get(0).getCell(0).toString());
+			assertEquals("\"135,350.56\"", csvr.getContentTuples().get(2).getCell(1).toString());
+			assertEquals("tt", csvr.getContentTuples().get(3).getCell(2).toString());
 			
-			csvr.read("./TestData/CSVReaderTest.csv", 2);
-			correctContent = "11,22,33,44\n\nJack,Rock\n12345,789,4,33\n"
-					+ "qq,ww,ee\n";
-			assertEquals(correctContent, csvr.getContent());
-			
-			csvr.read("./TestData/CSVReaderTest.csv", 2, 4);
-			correctContent = "11,22,33,44\n\nJack,Rock\n";
-			assertEquals(correctContent, csvr.getContent());
-			
-			csvr.read("./TestData/CSVReaderTest.csv", 2, 5);
-			correctContent = "11,22,33,44\n\nJack,Rock\n12345,789,4,33\n";
-			assertEquals(correctContent, csvr.getContent());
+			csvr.read("./TestData/CSVReaderTest.csv", 5, 6);
+			assertEquals("12345", csvr.getContentTuples().get(0).getCell(0).toString());
+			assertEquals("ww", csvr.getContentTuples().get(1).getCell(1).toString());
+			csvr.getContentTuples().get(2).getCell(1).toString();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

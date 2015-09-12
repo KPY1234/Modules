@@ -36,21 +36,29 @@ public class StringHandlerTest {
 		assertEquals(0, StringHandler.findHead("AWSnnns","AWS"));	//字串比對
 		assertEquals(5, StringHandler.findHead("abcqwAWSnnns","AWS"));	//字串比對
 		assertEquals(5, StringHandler.findHead("abcqw(AWS)nnns","\\(.*\\)")); //正規式比對
+		assertEquals(9, StringHandler.findHead("qq,ww,ee,\"aa\"\",\"\"cc\"","\".*\"")); //正規式比對
 		assertEquals(5, StringHandler.findHead("abcqwAWSnnns","AWS", 2));	//字串比對
 		assertEquals(-1, StringHandler.findHead("abcqwAWSnnns","AWS", 6));	//字串比對
 		
 	}
 	
 	@Test
-	public void findHeadEnd() {
+	public void findHeadEndTest() {
 		assertEquals(7, StringHandler.findEnd("abcqwAWS","AWS"));	//字串比對
 		assertEquals(7, StringHandler.findEnd("abcqwAWSnnns","AWS"));	//字串比對
 		assertEquals(9, StringHandler.findEnd("abcqw(AWS)nnns","\\(.*\\)")); //正規式比對
+		assertEquals(19, StringHandler.findEnd("qq,ww,ee,\"aa\"\",\"\"cc\"","\".*\"")); //正規式比對
 		assertEquals(7, StringHandler.findEnd("abcqwAWSnnns","AWS", 2));	//字串比對
 		assertEquals(-1, StringHandler.findEnd("abcqwAWSnnns","AWS", 6));	//字串比對
 		
 	}
 	
-	
+	@Test
+	public void appearCountTest() {
+		assertEquals(4, StringHandler.appearCount("AABB,CCSS,GGHH,AA","A"));
+		assertEquals(2, StringHandler.appearCount("AABB,CCSS,GGHH,AA","AA"));
+		assertEquals(1, StringHandler.appearCount("AABB,CCSS,GGHH,AA","CC"));
+		assertEquals(3, StringHandler.appearCount("AABB,CCSS,GGHH,AA",","));
+	}
 
 }

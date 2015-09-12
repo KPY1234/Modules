@@ -64,4 +64,20 @@ public class StringHandler {
 		return index;
 	}
 	
+	public static int appearCount(String str, String matchStr){
+		
+		int index = str.indexOf(matchStr);
+		int count = 0;
+		while(index!=-1){
+			count++;
+			index = str.indexOf(matchStr, index+1);
+		}
+		return count;
+	}
+	
+	public static void main(String[] args) {
+		
+		System.out.println(appearCount("AABB,CCSS,GGHH,AA","CC"));
+		
+	}
 }
