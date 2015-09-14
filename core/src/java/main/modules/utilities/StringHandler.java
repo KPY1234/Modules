@@ -7,6 +7,12 @@ import java.util.regex.Pattern;
 
 public class StringHandler {
 	
+	public static String delete(String str, int fromIndex, int endIndex){
+		String firstPart = str.substring(0, fromIndex);
+		String secondPart = str.substring(endIndex+1);
+		return firstPart+secondPart;
+	}
+	
 	public static String[] splitByTokens(String str, String delimits){
 		ArrayList<String> list = new ArrayList<String>();
 		StringTokenizer st = new StringTokenizer(str,delimits);
@@ -77,7 +83,11 @@ public class StringHandler {
 	
 	public static void main(String[] args) {
 		
-		System.out.println(appearCount("AABB,CCSS,GGHH,AA","CC"));
+//		System.out.println(StringHandler.delete("ABCDefgHIJK", 4, 6));
+//		System.out.println(StringHandler.findEnd("<abc>  <w>\nAW<Snn>ns","<[^>]*>"));
+		System.out.println(StringHandler.findHead("EAh1configedeBG","A.*BG&&.*(?<!config)$"));
+		
+//		System.out.println(appearCount("AABB,CCSS,GGHH,AA","CC"));
 		
 	}
 }
