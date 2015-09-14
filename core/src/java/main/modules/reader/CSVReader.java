@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
 import modules.struct.Tuple;
@@ -17,8 +18,6 @@ public class CSVReader {
 		contentTuples = new ArrayList<Tuple>();
 	}
 	
-	
-
 	public void read(String filePath, int startRow, int endRow) throws IOException{
 		clear();
 		BufferedReader br = new BufferedReader(new FileReader(filePath));
@@ -79,7 +78,6 @@ public class CSVReader {
 			for(int i=0;i<lineSplit.length;i++)
 				tuple.addCell(lineSplit[i].trim());
 			
-			
 		}
 		return tuple;
 	}
@@ -92,6 +90,73 @@ public class CSVReader {
 		return contentTuples;
 	}
 	
+	public ArrayList<Tuple> getDataFromColumns(int... columnIndexs){
+		
+		Arrays.sort(columnIndexs);
+		ArrayList<Tuple> tuples = new ArrayList<Tuple>();
+		
+		for(int i=0;i<contentTuples.size();i++){
+			
+			Tuple temTuple = new Tuple();
+			
+			for(int j=0;j<columnIndexs.length;j++){
+				int index = columnIndexs[j];
+				try{
+					temTuple.addCell(contentTuples.get(i).getCell(index).getValue());
+				}catch(IndexOutOfBoundsException ioobe){
+					System.err.println("Your column index: "+index+" out of bound, column size: "+contentTuples.get(i).size());
+				}
+			}
+			tuples.add(temTuple);
+		}
+		return tuples;
+	}
+	
+	public ArrayList<Tuple> getDataFromColumns(ArrayList<Integer> columnIndexs){
+		
+		columnIndexs.sort(null);
+		
+		ArrayList<Tuple> tuples = new ArrayList<Tuple>();
+		
+		for(int i=0;i<contentTuples.size();i++){
+			
+			Tuple temTuple = new Tuple();
+			
+			for(int j=0;j<columnIndexs.size();j++){
+				int index = columnIndexs.get(j);
+				try{
+					temTuple.addCell(contentTuples.get(i).getCell(index).getValue());
+				}catch(IndexOutOfBoundsException ioobe){
+					System.err.println("Your column index: "+index+" out of bound, column size: "+contentTuples.get(i).size());
+				}
+			}
+			tuples.add(temTuple);
+		}
+		return tuples;
+	}
+	
+	public ArrayList<Tuple> getDataFromColumnsLimited(int[] columnIndexs, int limitSize){
+		
+		Arrays.sort(columnIndexs);
+		ArrayList<Tuple> tuples = new ArrayList<Tuple>();
+		
+		for(int i=0;i<contentTuples.size();i++){
+			if(contentTuples.get(i).size()<limitSize)
+				continue;
+			
+			Tuple temTuple = new Tuple();
+			for(int j=0;j<columnIndexs.length;j++){
+				int index = columnIndexs[j];
+				try{
+					temTuple.addCell(contentTuples.get(i).getCell(index).getValue());
+				}catch(IndexOutOfBoundsException ioobe){
+					System.err.println("Your column index: "+index+" out of bound, column size: "+contentTuples.get(i).size());
+				}
+			}
+			tuples.add(temTuple);
+		}
+		return tuples;
+	}
 	
 	public static void main(String[] args) {
 		
@@ -99,8 +164,19 @@ public class CSVReader {
 		
 		try {
 			csvr.read("./TestData/CSVReaderTest.csv", 1);
+<<<<<<< HEAD
 			for(int i=0;i<csvr.getContentTuples().size();i++)
 				System.out.println(csvr.getContentTuples().get(i));
+=======
+//			for(int i=0;i<csvr.getContentTuples().size();i++)
+//				System.out.println(csvr.getContentTuples().get(i));
+			ArrayList<Integer> list = new ArrayList<Integer>();
+			list.add(1);
+			list.add(3);
+			list.add(10);
+			list.add(7);
+			System.out.println(csvr.getDataFromColumns(list));
+>>>>>>> 802642e02d5ed40a46204c524ea3ae8da759921c
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
