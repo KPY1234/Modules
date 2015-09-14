@@ -15,7 +15,6 @@ public class CSVReader {
 	
 	public CSVReader(){
 		contentTuples = new ArrayList<Tuple>();
-		
 	}
 	
 	
@@ -99,7 +98,7 @@ public class CSVReader {
 		CSVReader csvr = new CSVReader();
 		
 		try {
-			csvr.read("./TestData/SQUOTE_EW_1040903.csv", 1);
+			csvr.read("./TestData/CSVReaderTest.csv", 1);
 			for(int i=0;i<csvr.getContentTuples().size();i++)
 				System.out.println(csvr.getContentTuples().get(i));
 		} catch (IOException e) {
