@@ -85,7 +85,7 @@ public class StringHandler {
 		
 //		System.out.println(StringHandler.delete("ABCDefgHIJK", 4, 6));
 //		System.out.println(StringHandler.findEnd("<abc>  <w>\nAW<Snn>ns","<[^>]*>"));
-		System.out.println(StringHandler.findHead("EAh1configedeBG","A.*BG&&.*(?<!config)$"));
+		System.out.println(StringHandler.findHead("EAh1conffigedeBG","A.*(^config)"));
 		
 //		System.out.println(appearCount("AABB,CCSS,GGHH,AA","CC"));
 		

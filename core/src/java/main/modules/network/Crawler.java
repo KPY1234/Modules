@@ -50,12 +50,15 @@ public class Crawler {
 	    int matchHeadIndex;
 	    while((matchHeadIndex = StringHandler.findHead(sourceContent, "<[^<]*>", startIndex)) != -1){
 	    	
-	    	System.out.println("Content:"+sourceContent.substring(startIndex, matchHeadIndex).trim());
+	    	String partContent = sourceContent.substring(startIndex, matchHeadIndex).trim();
+	    	
+	    	if(!partContent.isEmpty())
+	    		System.out.println(partContent);
 	    	
 	    	int matchEndIndex = StringHandler.findEnd(sourceContent, "<[^>]*>", startIndex);
 	    	
-	    	System.out.println("match index: "+matchHeadIndex+"\t"+matchEndIndex);
-	    	System.out.println(sourceContent.substring(matchHeadIndex, matchEndIndex+1));
+//	    	System.out.println("match index: "+matchHeadIndex+"\t"+matchEndIndex);
+//	    	System.out.println(sourceContent.substring(matchHeadIndex, matchEndIndex+1));
 	    	startIndex = matchEndIndex+1;
 	    }
 	    
@@ -98,11 +101,11 @@ public class Crawler {
 	
 	public static void main(String[] args) {
 		
-		String url = "http://www.oracle.com/";
+		String url = "https://tw.stock.yahoo.com/d/s/company_4417.html";
 		try {
 //			System.out.println(Crawler.getSource(url));
-//			Crawler.getPureContent(url);
-			System.out.println(Crawler.getScriptContent(url));
+			Crawler.getPureContent(url);
+//			System.out.println(Crawler.getScriptContent(url));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

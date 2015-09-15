@@ -164,10 +164,7 @@ public class CSVReader {
 		
 		try {
 			csvr.read("./TestData/CSVReaderTest.csv", 1);
-<<<<<<< HEAD
-			for(int i=0;i<csvr.getContentTuples().size();i++)
-				System.out.println(csvr.getContentTuples().get(i));
-=======
+
 //			for(int i=0;i<csvr.getContentTuples().size();i++)
 //				System.out.println(csvr.getContentTuples().get(i));
 			ArrayList<Integer> list = new ArrayList<Integer>();
@@ -176,7 +173,6 @@ public class CSVReader {
 			list.add(10);
 			list.add(7);
 			System.out.println(csvr.getDataFromColumns(list));
->>>>>>> 802642e02d5ed40a46204c524ea3ae8da759921c
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
