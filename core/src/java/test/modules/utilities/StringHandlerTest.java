@@ -1,14 +1,29 @@
 package modules.utilities;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 
 import org.junit.Test;
 
 public class StringHandlerTest {
 	
 	@Test
+	public void isNumericTest(){
+		assertTrue(StringHandler.isNumeric("11313145"));
+		assertTrue(StringHandler.isNumeric("11.3"));
+		assertTrue(StringHandler.isNumeric("-11.3"));
+		assertTrue(StringHandler.isNumeric("+11.3"));
+		assertFalse(StringHandler.isNumeric("AA213"));
+		assertFalse(StringHandler.isNumeric("213.12.21"));
+		assertFalse(StringHandler.isNumeric("#213"));
+		assertFalse(StringHandler.isNumeric("--213"));
+		assertFalse(StringHandler.isNumeric(""));
+	}
+	
+	
+	@Test
 	public void deleteTest() {
-		
 		assertEquals("ABCDHIJK", StringHandler.delete("ABCDefgHIJK", 4, 6));
 		assertEquals("ABCDHIJK", StringHandler.delete("ABCDqqefgqqHIJK", 4, 10));
 	}

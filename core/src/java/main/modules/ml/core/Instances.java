@@ -75,7 +75,7 @@ public class Instances implements Serializable{
 		
 		for(int i=0;i<insts.size();i++){
 			Instance inst = insts.get(i);
-			Vector<String> vec = inst.getVec();
+			Vector<String> vec = inst.getRecords();
 			
 			for(int j=0;j<vec.size();j++){
 				
@@ -99,6 +99,7 @@ public class Instances implements Serializable{
 							minNums.put(j, numeric);
 					}
 					
+	
 				}
 				else{
 					if(!nominals.containsKey(j)){
@@ -239,10 +240,10 @@ public class Instances implements Serializable{
 	
 	public static void main(String[] args) {
 		Instances insts = new Instances(4);
-		insts.addInstance(new Instance("1,2.21,aa1, ,ee",",",5));
-		insts.addInstance(new Instance("2,2.31,aa, ,ee",",",5));
-		insts.addInstance(new Instance("3,7.21,aa,7,qe",",",5));
-		insts.addInstance(new Instance("4,5.2,aaaa, ,uuu",",",5));
+		insts.addInstance(new Instance("1,2.21,aa1, ,ee",","));
+		insts.addInstance(new Instance("2,2.31,aa, ,ee",","));
+		insts.addInstance(new Instance("3,7.21,aa,7,qe",","));
+		insts.addInstance(new Instance("4,5.2,aaaa, ,uuu",","));
 		
 		insts.checkBoundry();
 		

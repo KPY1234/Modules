@@ -29,7 +29,7 @@ public class CSVDataLoader extends DataLoader {
 		
 		line = br.readLine();
 		while(line!=null){
-			insts.addInstance(new Instance(line, ",", columns));
+			insts.addInstance(new Instance(line, ","));
 			line = br.readLine();
 		}
 		br.close();
@@ -53,7 +53,7 @@ public class CSVDataLoader extends DataLoader {
 		line = br.readLine();
 		while(line!=null){
 		
-			insts.addInstance(new Instance(line, ",", columns));
+			insts.addInstance(new Instance(line, ","));
 			line = br.readLine();
 		}
 		br.close();

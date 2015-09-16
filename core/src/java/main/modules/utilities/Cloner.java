@@ -78,10 +78,10 @@ public class Cloner
 		
     	
     	Instances insts = new Instances(4);
-		insts.addInstance(new Instance("1,2.21,aa1, ,ee",",",5));
-		insts.addInstance(new Instance("2,2.31,aa, ,ee",",",5));
-		insts.addInstance(new Instance("3,7.21,aa,7,qe",",",5));
-		insts.addInstance(new Instance("4,5.2,aaaa, ,uuu",",",5));
+		insts.addInstance(new Instance("1,2.21,aa1, ,ee",","));
+		insts.addInstance(new Instance("2,2.31,aa, ,ee",","));
+		insts.addInstance(new Instance("3,7.21,aa,7,qe",","));
+		insts.addInstance(new Instance("4,5.2,aaaa, ,uuu",","));
 		
 		insts.checkBoundry();
 		

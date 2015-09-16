@@ -2,8 +2,9 @@ package modules.ml.core;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Vector;
+
+import modules.utilities.StringHandler;
 
 public class Attributes implements Serializable{
 
@@ -34,24 +35,25 @@ public class Attributes implements Serializable{
 		names.add(name);
 	}
 	
-	
+	/**
+	 * 檢查資料欄位的型態
+	 * @param inst 單筆資料實例
+	 * @param labelIndex 監督式學習的label位置 
+	 */
 	public void checkTypes(Instance inst, int labelIndex){
 		
-		Vector<String> vec = inst.getVec();
+		Vector<String> vec = inst.getRecords();
 		for(int i=0;i<vec.size();i++){
 			if(i+1>types.size())
 				types.add("numeric");
 			if(i==labelIndex)
 				types.set(i, "nominal");
-			
-			String value = vec.elementAt(i);
-			
-			double numeric = 0;
-			try{
-				numeric = Double.parseDouble(value);
-			}catch(NumberFormatException ex){
-				if(!value.trim().isEmpty())
-					types.set(i, "nominal");
+	
+			String value = vec.elementAt(i).trim();
+			if(value.isEmpty())
+				continue;
+			if(!StringHandler.isNumeric(value)){
+				types.set(i, "nominal");
 			}
 		}
 	}
@@ -84,10 +86,10 @@ public class Attributes implements Serializable{
 		String line3 = "3,7.21,aa,7,qe";
 		String line4 = "4,5.2,aa, ,uuu";
 		Attributes atts = new Attributes(attNames);
-		atts.checkTypes(new Instance(line1,",",5),0);
-		atts.checkTypes(new Instance(line2,",",5),0);
-		atts.checkTypes(new Instance(line3,",",5),0);
-		atts.checkTypes(new Instance(line4,",",5),0);
+		atts.checkTypes(new Instance(line1,","),0);
+		atts.checkTypes(new Instance(line2,","),0);
+		atts.checkTypes(new Instance(line3,","),0);
+		atts.checkTypes(new Instance(line4,","),0);
 		System.out.println(atts);
 	}
 	

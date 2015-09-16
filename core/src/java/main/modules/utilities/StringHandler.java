@@ -7,6 +7,16 @@ import java.util.regex.Pattern;
 
 public class StringHandler {
 	
+	
+	public static boolean isNumeric(String str){  
+		try{  
+			double d = Double.parseDouble(str);  
+		}catch(NumberFormatException nfe){  
+			return false;  
+		}  
+		return true;  
+	}
+	
 	public static String delete(String str, int fromIndex, int endIndex){
 		String firstPart = str.substring(0, fromIndex);
 		String secondPart = str.substring(endIndex+1);

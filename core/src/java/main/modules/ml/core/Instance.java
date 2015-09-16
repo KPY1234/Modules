@@ -7,61 +7,58 @@ public class Instance implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
-	Vector<String> vec;
+	Vector<String> records;
 	
 	public Instance(){
-		vec = new Vector<String>();
+		records = new Vector<String>();
 	}
 	
-	public Instance(String line, String delimit, int columns){
+	public Instance(String line, String delimit){
 		
-		vec = new Vector<String>();
-		
+		records = new Vector<String>();
 		String[] lineSplit = line.split(delimit);
-		for(int i=0;i<lineSplit.length;i++){
-			String value = lineSplit[i].trim().replaceAll(" ", "");
-			if(value.isEmpty())
-				vec.add("null");
-			else
-				vec.add(value);
-		}
-//		System.out.println(vec);
 		
-		fill(columns);
+		for(int i=0;i<lineSplit.length;i++){
+			String value = lineSplit[i].trim();
+			if(value.isEmpty())
+				records.add("null");
+			else
+				records.add(value);
+		}
 	}
 	
 	private void fill(int columns){
-		for(int i=vec.size();i<columns;i++)
-			vec.add("null");
+		for(int i=records.size();i<columns;i++)
+			records.add("null");
 	}
 	
-	public Vector<String> getVec(){
-		return vec;
+	public Vector<String> getRecords(){
+		return records;
 	}
 	
 	public void removeColumn(int index){
-		vec.remove(index);
+		records.remove(index);
 	}
 	
 	public void add(String value){
-		vec.add(value);
+		records.add(value);
 	}
 	
 	public String get(int index){
-		return vec.elementAt(index);
+		return records.elementAt(index);
 	}
 	
 	public int size(){
-		return vec.size(); 
+		return records.size(); 
 	}
 	
 	public String toString(){
-		return vec.toString();
+		return records.toString();
 	}
 	
 	public static void main(String[] args) {
 		String line = "1,2.21,,aa";
-		Instance inst = new Instance(line,",",5);
+		Instance inst = new Instance(line,",");
 		System.out.println(inst);
 	}
 	
