@@ -15,10 +15,28 @@ public class AttributesTest {
 	public void constuctorTest(){
 		Attributes att1 = new Attributes();
 		assertEquals(0, att1.getAttNames().size());
+		assertEquals(-1, att1.getLabelIndex());
+		
+		Attributes att2 = new Attributes(7);
+		assertEquals(0, att2.getAttNames().size());
+		assertEquals(7, att2.getLabelIndex());
 	
 		String[] columns = new String[]{"Name, Sex, Phone, , Address"};
-		Attributes att2 = new Attributes(columns);
-		assertArrayEquals(columns, att2.getAttNames().toArray());
+		Attributes att3 = new Attributes(columns);
+		assertArrayEquals(columns, att3.getAttNames().toArray());
+		
+		Attributes att4 = new Attributes(columns, 7);
+		assertEquals(7, att4.getLabelIndex());
+		
+		
+	}
+	
+	@Test
+	public void setLabelIndexTest(){
+		Attributes att = new Attributes();
+		assertEquals(-1, att.getLabelIndex());
+		att.setLabelIndex(5);
+		assertEquals(5, att.getLabelIndex());
 	}
 	
 	@Test

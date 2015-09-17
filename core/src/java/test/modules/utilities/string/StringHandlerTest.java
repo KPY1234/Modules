@@ -1,10 +1,12 @@
-package modules.utilities;
+package modules.utilities.string;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 
 import org.junit.Test;
+
+import modules.utilities.string.StringHandler;
 
 public class StringHandlerTest {
 	

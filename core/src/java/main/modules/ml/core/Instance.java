@@ -1,6 +1,7 @@
 package modules.ml.core;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Vector;
 
 public class Instance implements Serializable{
@@ -27,17 +28,18 @@ public class Instance implements Serializable{
 		}
 	}
 	
-	private void fill(int columns){
-		for(int i=records.size();i<columns;i++)
-			records.add("null");
-	}
-	
 	public Vector<String> getRecords(){
 		return records;
 	}
 	
 	public void removeColumn(int index){
 		records.remove(index);
+	}
+	
+	public void removeColumns(int[] indexs){
+		Arrays.sort(indexs);
+		for(int i=indexs.length-1;i>=0;i--)
+			removeColumn(indexs[i]);
 	}
 	
 	public void add(String value){
@@ -57,9 +59,12 @@ public class Instance implements Serializable{
 	}
 	
 	public static void main(String[] args) {
-		String line = "1,2.21,,aa";
+		String line = "1,2.21,9,4,aa,,";
 		Instance inst = new Instance(line,",");
 		System.out.println(inst);
-	}
 	
+		int[] indices = new int[]{1,3,2};
+		inst.removeColumns(indices);
+		System.out.println(inst);
+	}
 }

@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Vector;
 
-import modules.utilities.StringHandler;
+import modules.utilities.string.StringHandler;
 
 public class Attributes implements Serializable{
 
@@ -12,8 +12,15 @@ public class Attributes implements Serializable{
 	
 	ArrayList<String> names; 
 	ArrayList<String> types; 
+	int labelIndex = -1;	//若資料集無label(非監督式學習)，則label index為-1
 
 	public Attributes(){
+		names = new ArrayList<String>();
+		types = new ArrayList<String>();
+	}
+	
+	public Attributes(int labelIndex){
+		this.labelIndex = labelIndex;
 		names = new ArrayList<String>();
 		types = new ArrayList<String>();
 	}
@@ -23,6 +30,18 @@ public class Attributes implements Serializable{
 		types = new ArrayList<String>();
 		for(int i=0;i<colNames.length;i++)
 			names.add(colNames[i]);
+	}
+	
+	public Attributes(String[] colNames, int labelIndex){
+		this.labelIndex = labelIndex;
+		names = new ArrayList<String>();
+		types = new ArrayList<String>();
+		for(int i=0;i<colNames.length;i++)
+			names.add(colNames[i]);
+	}
+	
+	public void setLabelIndex(int labelIndex){
+		this.labelIndex = labelIndex;
 	}
 
 	public void setAttName(String[] colNames){
@@ -38,9 +57,8 @@ public class Attributes implements Serializable{
 	/**
 	 * 檢查資料欄位的型態
 	 * @param inst 單筆資料實例
-	 * @param labelIndex 監督式學習的label位置 
 	 */
-	public void checkTypes(Instance inst, int labelIndex){
+	public void checkTypes(Instance inst){
 		
 		Vector<String> vec = inst.getRecords();
 		for(int i=0;i<vec.size();i++){
@@ -71,6 +89,10 @@ public class Attributes implements Serializable{
 		types.remove(attIndex);
 	}
 	
+	public int getLabelIndex(){
+		return labelIndex;
+	}
+	
 	public String toString(){
 		
 		String str = "att: "+names.toString()+"\n";
@@ -86,10 +108,10 @@ public class Attributes implements Serializable{
 		String line3 = "3,7.21,aa,7,qe";
 		String line4 = "4,5.2,aa, ,uuu";
 		Attributes atts = new Attributes(attNames);
-		atts.checkTypes(new Instance(line1,","),0);
-		atts.checkTypes(new Instance(line2,","),0);
-		atts.checkTypes(new Instance(line3,","),0);
-		atts.checkTypes(new Instance(line4,","),0);
+		atts.checkTypes(new Instance(line1,","));
+		atts.checkTypes(new Instance(line2,","));
+		atts.checkTypes(new Instance(line3,","));
+		atts.checkTypes(new Instance(line4,","));
 		System.out.println(atts);
 	}
 	

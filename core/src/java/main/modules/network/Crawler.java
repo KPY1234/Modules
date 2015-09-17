@@ -7,7 +7,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 
-import modules.utilities.StringHandler;
+import modules.utilities.string.StringHandler;
 
 public class Crawler {
 

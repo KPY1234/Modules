@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.StringTokenizer;
 
 import modules.struct.Tuple;
-import modules.utilities.StringHandler;
+import modules.utilities.string.StringHandler;
 
 public class CSVReader {
 	

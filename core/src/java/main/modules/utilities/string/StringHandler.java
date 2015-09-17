@@ -1,4 +1,4 @@
-package modules.utilities;
+package modules.utilities.string;
 
 import java.util.ArrayList;
 import java.util.StringTokenizer;
