@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Vector;
 
-import modules.utilities.obj.Cloner;
+import modules.utilities.Cloner;
 
 
 public class Instances implements Serializable{
@@ -49,7 +49,7 @@ public class Instances implements Serializable{
 	
 	
 	public void addInstance(Instance inst){
-		atts.checkTypes(inst);
+		atts.checkTypes(insts.size(), inst);
 		if(atts.getAttNames().size()==0){
 			for(int i=0;i<inst.size();i++){
 				if(i==labelIndex)

@@ -8,7 +8,7 @@ import modules.ml.core.InstanceTest;
 import modules.reader.CSVReaderTest;
 import modules.struct.PairTest;
 import modules.struct.ThreeLayerHashMapTest;
-import modules.utilities.io.StandardIOTest;
+import modules.utilities.ArrayHandlerTest;
 import modules.utilities.string.StringHandlerTest;
 
 @RunWith(Suite.class)
@@ -19,7 +19,7 @@ import modules.utilities.string.StringHandlerTest;
    StringHandlerTest.class,
    AttributesTest.class,
    InstanceTest.class,
-   StandardIOTest.class
+   ArrayHandlerTest.class
    
 })
 public class JunitTestSuite { 

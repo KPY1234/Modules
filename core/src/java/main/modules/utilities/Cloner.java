@@ -1,4 +1,4 @@
-package modules.utilities.obj;
+package modules.utilities;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
