@@ -85,11 +85,13 @@ public class AttributesTest {
 	@Test
 	public void checkTypesTest(){
 		
-		Attributes att = new Attributes();
+		String[] columnNames = new String[]{"f1","f2","f3","f4","f5","f6","f7"};
+		Attributes att = new Attributes(columnNames);
+	
 		
 		att.checkTypes(0,new Instance("aa,bb,,1,9,,4", ","));
 		att.checkTypes(1,new Instance("aa,bb,,1,9,,4", ","));
-		
+		assertEquals("nominal", att.getTypes().get(0));
 		
 	}
 	
