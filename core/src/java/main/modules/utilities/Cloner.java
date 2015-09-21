@@ -77,7 +77,7 @@ public class Cloner
     public static void main(String[] args) {
 		
     	
-    	Instances insts = new Instances(4);
+    	Instances insts = new Instances();
 		insts.addInstance(new Instance("1,2.21,aa1, ,ee",","));
 		insts.addInstance(new Instance("2,2.31,aa, ,ee",","));
 		insts.addInstance(new Instance("3,7.21,aa,7,qe",","));

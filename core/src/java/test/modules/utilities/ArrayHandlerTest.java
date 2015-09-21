@@ -1,6 +1,7 @@
 package modules.utilities;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertArrayEquals;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -74,5 +75,18 @@ public class ArrayHandlerTest {
 		assertEquals("1.1,2.2,3.3,4.4", outContent.toString());
 		
 	}
+	
+	@Test
+	public void removeTest(){
+		
+		String[] strs = new String[]{"AA", "BB", "CC"};
+		String[] removedStrs = new String[]{"AA", "BB"};
+		assertArrayEquals(removedStrs, ArrayHandler.remove(strs, 2));
+		
+		strs = new String[]{"AA", "BB", "CC"};
+		removedStrs = new String[]{"BB", "CC"};
+		assertArrayEquals(removedStrs, ArrayHandler.remove(strs, 0));
+	}
+	
 	
 }

@@ -21,7 +21,6 @@ public class Instances implements Serializable{
 	HashMap<Integer, Double> minNums;
 	HashMap<Integer, ArrayList<String>> nominals;
 	
-	int labelIndex = -1;
 	ArrayList<String> labels;
 	
 	
@@ -36,8 +35,8 @@ public class Instances implements Serializable{
 		
 	}
 	
-	public Instances(int labelIndex){
-		this.labelIndex = labelIndex;
+	public Instances(Attributes atts){
+		this.atts = atts;
 		atts = new Attributes();
 		insts = new ArrayList<Instance>();
 		maxNums = new HashMap<Integer, Double>();
@@ -52,7 +51,7 @@ public class Instances implements Serializable{
 		atts.checkTypes(insts.size(), inst);
 		if(atts.getAttNames().size()==0){
 			for(int i=0;i<inst.size();i++){
-				if(i==labelIndex)
+				if(i==atts.getLabelIndex())
 					atts.getAttNames().add("Label");
 				else
 					atts.getAttNames().add("F"+(i+1));
@@ -61,8 +60,8 @@ public class Instances implements Serializable{
 			
 		insts.add(inst);
 		
-		if(labelIndex!=-1){
-			String label = inst.get(labelIndex);
+		if(atts.getLabelIndex()!=-1){
+			String label = inst.get(atts.getLabelIndex());
 			if(!labels.contains(label))
 				labels.add(label);
 		}
@@ -129,10 +128,10 @@ public class Instances implements Serializable{
 		
 		atts.remove(columnIndex);
 		
-		if(columnIndex == labelIndex)
-			labelIndex = -1;
-		if(labelIndex > columnIndex)
-			labelIndex--;
+		if(columnIndex == atts.getLabelIndex())
+			atts.setLabelIndex(-1);
+		if(atts.getLabelIndex() > columnIndex)
+			atts.setLabelIndex(atts.getLabelIndex()-1);
 			
 		if(maxNums.containsKey(columnIndex))
 			maxNums.remove(columnIndex);
@@ -209,7 +208,7 @@ public class Instances implements Serializable{
 	}
 	
 	public int getLabelIndex(){
-		return labelIndex;
+		return atts.getLabelIndex();
 	}
 	
 	public Instance get(int index){
@@ -226,8 +225,8 @@ public class Instances implements Serializable{
 		str += "\nmin boundry: "+getMinNums().toString();
 		str += "\nnominals boundry: "+getNominals().toString();
 		
-		if(labelIndex>-1)
-			str += "\nlabels = "+getNominals().get(labelIndex).toString();
+		if(atts.getLabelIndex()>-1)
+			str += "\nlabels = "+getNominals().get(atts.getLabelIndex()).toString();
 		
 		str += "\n@data";
 		str += "\n";
@@ -239,7 +238,7 @@ public class Instances implements Serializable{
 	}
 	
 	public static void main(String[] args) {
-		Instances insts = new Instances(4);
+		Instances insts = new Instances();
 		insts.addInstance(new Instance("1,2.21,aa1, ,ee",","));
 		insts.addInstance(new Instance("2,2.31,aa, ,ee",","));
 		insts.addInstance(new Instance("3,7.21,aa,7,qe",","));

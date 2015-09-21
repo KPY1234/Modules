@@ -35,7 +35,7 @@ public class ArrayHandler {
 	
 	
 	public static Object[] add(Object[] objs, Object obj){
-
+		
 		Object[] newObjs = Arrays.copyOf(objs, objs.length+1);
 		newObjs[objs.length] = obj;
 		objs = null;
@@ -64,11 +64,11 @@ public class ArrayHandler {
 	public static <T> T[] remove(T[] ts, int index){
 		
 		@SuppressWarnings("unchecked")
-		T[] c = (T[]) Array.newInstance(ts.getClass().getComponentType(), ts.length-1);
-		System.arraycopy(a, 0, c, 0, aLen);
-	    System.arraycopy(b, 0, c, aLen, bLen);
-	
-		return newObjs;
+		T[] newArr = (T[]) Array.newInstance(ts.getClass().getComponentType(), ts.length-1);
+		System.arraycopy(ts, 0, newArr, 0, index);
+	    System.arraycopy(ts, index+1, newArr, index, ts.length-index-1);
+	    
+		return newArr;
 	}
 	
 	public static <T> T[] concatenate(T[] a, T[] b) {
@@ -133,5 +133,9 @@ public class ArrayHandler {
 		int[] intb = new int[]{3, 4};
 		ArrayHandler.printArray(ArrayHandler.concatenate(inta, intb),",");
 		
+		System.out.println();
+		String[] str2 = new String[]{"QQ", "NN", "RR", "YY"};
+		String[] str3 = ArrayHandler.remove(str2, 0);
+		ArrayHandler.printArray(str3, ",");
 	}
 }

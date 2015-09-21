@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
+import modules.ml.core.Attributes;
 import modules.ml.core.Instance;
 import modules.ml.core.Instances;
 
@@ -14,7 +15,7 @@ public class CSVDataLoader extends DataLoader {
 	public CSVDataLoader(){
 	}
 	
-	public Instances load(String filepath, int columns) throws IOException{
+	public Instances load(String filepath) throws IOException{
 		
 		File f = new File(filepath);
 		String dataName = f.getName().split("\\.")[0];
@@ -38,12 +39,12 @@ public class CSVDataLoader extends DataLoader {
 	}
 	
 	// index start from 0
-	public Instances load(String filepath, int columns, int labelIndex) throws IOException{
+	public Instances load(String filepath, Attributes att) throws IOException{
 		
 		File f = new File(filepath);
 		String dataName = f.getName().split("\\.")[0];
 		
-		Instances insts = new Instances(labelIndex);
+		Instances insts = new Instances(att);
 		insts.setDataName(dataName);
 		BufferedReader br = new BufferedReader(new FileReader(filepath));
 		
@@ -65,8 +66,10 @@ public class CSVDataLoader extends DataLoader {
 	public static void main(String[] args) {
 		
 		CSVDataLoader csvdl = new CSVDataLoader();
+		String filePath = "./TestData/ml/CSVLoaderTest.csv";
+		Attributes att = new Attributes(5);
 		try {
-			Instances insts = csvdl.load("./TestData/ml/CSVLoaderTest.csv",14,13);
+			Instances insts = csvdl.load(filePath, att);
 			System.out.println(insts);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

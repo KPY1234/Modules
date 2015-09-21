@@ -89,7 +89,6 @@ public class AttributesTest {
 		
 		att.checkTypes(0,new Instance("aa,bb,,1,9,,4", ","));
 		att.checkTypes(1,new Instance("aa,bb,,1,9,,4", ","));
-		System.out.println(att.getTypes());
 		
 		
 	}
@@ -110,7 +109,7 @@ public class AttributesTest {
 		String[] columns = new String[]{"Name", "Sex", "Age", "Phone", "", "Address"};
 		att.setAttName(columns);
 		att.remove(0);
-		assertArrayEquals(columns, att.getAttNames().toArray());
+		assertArrayEquals(ArrayHandler.remove(columns, 0), att.getAttNames().toArray());
 	}
 	
 }
