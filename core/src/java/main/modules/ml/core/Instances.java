@@ -23,8 +23,6 @@ public class Instances implements Serializable{
 	
 	ArrayList<String> labels;
 	
-	
-	
 	public Instances(){
 		atts = new Attributes();
 		insts = new ArrayList<Instance>();
@@ -37,7 +35,6 @@ public class Instances implements Serializable{
 	
 	public Instances(Attributes atts){
 		this.atts = atts;
-		atts = new Attributes();
 		insts = new ArrayList<Instance>();
 		maxNums = new HashMap<Integer, Double>();
 		minNums = new HashMap<Integer, Double>();
