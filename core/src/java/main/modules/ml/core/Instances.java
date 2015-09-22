@@ -48,6 +48,13 @@ public class Instances implements Serializable{
 	
 	
 	public void addInstance(Instance inst){
+		
+		if(atts.size()==0){
+			System.err.println("Attributes has not set up");
+			return;
+		}
+			
+		
 		atts.checkTypes(insts.size(), inst);
 		if(atts.getAttNames().size()==0){
 			for(int i=0;i<inst.size();i++){
@@ -177,6 +184,12 @@ public class Instances implements Serializable{
 	}
 	
 	public void removeColumn(ArrayList<Integer> columnIndexs){
+		
+		if(atts.size()==0){
+			System.err.println("Attributes has not set up");
+			return;
+		}
+			
 		
 		Object[] indexs = columnIndexs.toArray();
 		Arrays.sort(indexs);
