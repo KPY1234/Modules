@@ -8,7 +8,7 @@ public class Instance implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
-	Vector<String> records;
+	private Vector<String> records;
 	
 	public Instance(){
 		records = new Vector<String>();

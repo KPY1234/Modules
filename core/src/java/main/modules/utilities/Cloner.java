@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import modules.ml.core.AttributesNotSetException;
 import modules.ml.core.Instance;
 import modules.ml.core.Instances;
 
@@ -78,12 +79,19 @@ public class Cloner
 		
     	
     	Instances insts = new Instances();
-		insts.addInstance(new Instance("1,2.21,aa1, ,ee",","));
-		insts.addInstance(new Instance("2,2.31,aa, ,ee",","));
-		insts.addInstance(new Instance("3,7.21,aa,7,qe",","));
-		insts.addInstance(new Instance("4,5.2,aaaa, ,uuu",","));
+		try {
+			insts.addInstance(new Instance("1,2.21,aa1, ,ee",","));
+			insts.addInstance(new Instance("2,2.31,aa, ,ee",","));
+			insts.addInstance(new Instance("3,7.21,aa,7,qe",","));
+			insts.addInstance(new Instance("4,5.2,aaaa, ,uuu",","));
+			
+		} catch (AttributesNotSetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		insts.checkBoundry();
+		
+//		insts.checkAttributesBoundry();
 		
 		
 		Instances newInsts = (Instances) Cloner.clone(insts);
