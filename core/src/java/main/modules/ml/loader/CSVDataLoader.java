@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 import modules.ml.core.Attributes;
+import modules.ml.core.AttributesNotSetException;
 import modules.ml.core.Instance;
 import modules.ml.core.Instances;
 
@@ -30,11 +31,16 @@ public class CSVDataLoader extends DataLoader {
 		
 		line = br.readLine();
 		while(line!=null){
-			insts.addInstance(new Instance(line, ","));
+			try {
+				insts.addInstance(new Instance(line, ","));
+			} catch (AttributesNotSetException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			line = br.readLine();
 		}
 		br.close();
-		insts.checkBoundry();
+//		insts.checkAttributesBoundry();
 		return insts;
 	}
 	
@@ -54,11 +60,16 @@ public class CSVDataLoader extends DataLoader {
 		line = br.readLine();
 		while(line!=null){
 		
-			insts.addInstance(new Instance(line, ","));
+			try {
+				insts.addInstance(new Instance(line, ","));
+			} catch (AttributesNotSetException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			line = br.readLine();
 		}
 		br.close();
-		insts.checkBoundry();
+//		insts.checkAttributesBoundry();
 		return insts;
 	}
 	
