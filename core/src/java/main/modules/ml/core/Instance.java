@@ -47,7 +47,11 @@ public class Instance implements Serializable{
 	}
 	
 	public String get(int index){
-		return records.elementAt(index);
+		try{
+			return records.elementAt(index);
+		}catch(ArrayIndexOutOfBoundsException aioobe){
+			return "null";
+		}
 	}
 	
 	public int size(){
