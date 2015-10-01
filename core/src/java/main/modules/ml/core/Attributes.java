@@ -19,24 +19,10 @@ public class Attributes implements Serializable{
 	
 	private int labelIndex = -1;	//若資料集無label(非監督式學習)，則label index為-1
 
-	public Attributes(){
-		names = new ArrayList<String>();
-		types = new ArrayList<String>();
-		bounds = new HashMap<Integer, AttributeBoundary>();
-		nominals = new HashMap<Integer, ArrayList<String>>();
-	}
-	
-	public Attributes(int labelIndex){
-		this.labelIndex = labelIndex;
-		names = new ArrayList<String>();
-		types = new ArrayList<String>();
-		bounds = new HashMap<Integer, AttributeBoundary>();
-		nominals = new HashMap<Integer, ArrayList<String>>();
-	}
-	
 	public Attributes(String[] colNames){
 		names = new ArrayList<String>();
 		types = new ArrayList<String>();
+		
 		bounds = new HashMap<Integer, AttributeBoundary>();
 		nominals = new HashMap<Integer, ArrayList<String>>();
 		for(int i=0;i<colNames.length;i++){
@@ -50,21 +36,43 @@ public class Attributes implements Serializable{
 		this.labelIndex = labelIndex;
 		names = new ArrayList<String>();
 		types = new ArrayList<String>();
+		
 		bounds = new HashMap<Integer, AttributeBoundary>();
 		nominals = new HashMap<Integer, ArrayList<String>>();
 		for(int i=0;i<colNames.length;i++){
 			names.add(colNames[i]);
 			types.add("numeric");
 		}
-			
+		if(isLabeled()){
+			try{
+				types.set(labelIndex, "nominal");
+			}catch(IndexOutOfBoundsException ioobe){
+				System.err.println("Label索引設定超出範圍: label index = "+labelIndex+", column size = "+size());
+			}
+		}
+	}
+	
+	private boolean isLabeled(){
+		if(labelIndex>=0)
+			return true;
+		else
+			return false;
 	}
 	
 	public void setLabelIndex(int labelIndex){
 		this.labelIndex = labelIndex;
+		if(isLabeled()){
+			try{
+				types.set(labelIndex, "nominal");
+			}catch(IndexOutOfBoundsException ioobe){
+				System.err.println("Label索引設定超出範圍: label index = "+labelIndex+", column size = "+size());
+			}
+		}
 	}
 
 	public void setAttName(String[] colNames){
 		names.clear();
+		types.clear();
 		for(int i=0;i<colNames.length;i++){
 			names.add(colNames[i]);
 			types.add("numeric");
@@ -86,9 +94,6 @@ public class Attributes implements Serializable{
 	 * @param inst 單筆資料實例
 	 */
 	public void checkTypes(int count, Instance inst){
-		
-		if(labelIndex>0)   //為監督式學習資料集
-			types.set(labelIndex, "nominal");
 		
 		Vector<String> vec = inst.getRecords();
 		for(int i=0;i<size();i++){
@@ -119,6 +124,11 @@ public class Attributes implements Serializable{
 	
 	public void remove(int attIndex){
 		names.remove(attIndex);
+		String type = types.get(attIndex);
+		if(type.equals("numeric"))
+			bounds.remove(attIndex);
+		else
+			nominals.remove(attIndex);
 		types.remove(attIndex);
 	}
 	
@@ -142,29 +152,65 @@ public class Attributes implements Serializable{
 		
 		for(int i=0;i<insts.size();i++){
 			Instance inst = insts.get(i);
-			for(int columnIndex=0;columnIndex<inst.size();columnIndex++){
+			for(int columnIndex=0;columnIndex<size();columnIndex++){
+				
+				String record = inst.get(columnIndex);
+				
+				if(isStringEqualNull(record))
+					continue;
+
 				String dataType = getColumnType(columnIndex);
 				if(dataType.equals("numeric")){
-					double record = Double.parseDouble(inst.get(columnIndex));
-					refreshNumericBoundary(columnIndex, record);
+					double recordNumeric = Double.parseDouble(record);
+					refreshNumericBoundary(columnIndex, recordNumeric);
 				}
-				else{
-					String record = inst.get(columnIndex);
+				else
 					refreshNominalBoundary(columnIndex, record);
-				}
+				
 			}
 		}
 	}
 	
+	private boolean isStringEqualNull(String str){
+		
+		if(str.equals("NULL")||str.equals("null"))
+			return true;
+		else
+			return false;
+	}
+	
 	private void refreshNumericBoundary(int index, double number){
-		bounds.get(index).checkBoundary(number);
+		
+		if(bounds.containsKey(index))
+			bounds.get(index).checkBoundary(number);
+		else{
+			AttributeBoundary ab = new AttributeBoundary();
+			ab.checkBoundary(number);
+			bounds.put(index, ab);
+		}
 	}
 	
 	private void refreshNominalBoundary(int index, String nominal){
 		
-		ArrayList<String> set = nominals.get(index);
-		if(!set.contains(nominal))
+		if(nominals.containsKey(index)){
+			ArrayList<String> set = nominals.get(index);
+			if(!set.contains(nominal))
+				set.add(nominal);
+		}
+		else{
+			ArrayList<String> set = new ArrayList<String>();
 			set.add(nominal);
+			nominals.put(index, set);
+		}
+	}
+	
+	public ArrayList<String> getLabelSet(){
+		try{
+			return nominals.get(labelIndex);
+		}catch(ArrayIndexOutOfBoundsException aioobe){
+			System.err.println("無法取得Label集合: 超出索引範圍");
+			return new ArrayList<String>();
+		}
 	}
 	
 	public String toString(){
@@ -172,7 +218,8 @@ public class Attributes implements Serializable{
 		String str = "att: "+names.toString()+"\n";
 		str +="type: "+types.toString()+"\n";
 		str +="bounds: "+bounds.toString()+"\n";
-		str +="nominals: "+nominals.toString();
+		str +="nominals: "+nominals.toString()+"\n";
+		str += "label index: "+labelIndex;
 		return str;
 	}
 	
@@ -184,7 +231,7 @@ public class Attributes implements Serializable{
 		String line3 = "3,7.21,aa,7,qe";
 		String line4 = "4,5.2,aa, ,uuu, 22";
 		
-		Attributes atts = new Attributes(attNames, 5);
+		Attributes atts = new Attributes(attNames, -1);
 		
 		ArrayList<Instance> insts = new ArrayList<Instance>();
 		insts.add(new Instance(line1,","));

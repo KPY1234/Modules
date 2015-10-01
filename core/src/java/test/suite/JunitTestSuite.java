@@ -5,6 +5,7 @@ import org.junit.runners.Suite;
 
 import modules.ml.core.AttributesTest;
 import modules.ml.core.InstanceTest;
+import modules.ml.core.InstancesTest;
 import modules.reader.CSVReaderTest;
 import modules.struct.PairTest;
 import modules.struct.ThreeLayerHashMapTest;
@@ -19,6 +20,7 @@ import modules.utilities.string.StringHandlerTest;
    StringHandlerTest.class,
    AttributesTest.class,
    InstanceTest.class,
+   InstancesTest.class,
    ArrayHandlerTest.class
    
 })
