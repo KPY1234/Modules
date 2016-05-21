@@ -52,8 +52,8 @@ public class Crawler {
 	    	
 	    	String partContent = sourceContent.substring(startIndex, matchHeadIndex).trim();
 	    	
-	    	if(!partContent.isEmpty())
-	    		System.out.println(partContent);
+//	    	if(!partContent.isEmpty())
+//	    		System.out.println(partContent);
 	    	
 	    	int matchEndIndex = StringHandler.findEnd(sourceContent, "<[^>]*>", startIndex);
 	    	
