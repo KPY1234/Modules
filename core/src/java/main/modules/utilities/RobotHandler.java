@@ -31,7 +31,7 @@ private volatile static Robot robot;
 		try {
 			r = new Robot();
 			r.setAutoWaitForIdle(true);
-		 	r.setAutoDelay(300);
+		 	r.setAutoDelay(500);
 		} catch (AWTException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -49,8 +49,28 @@ private volatile static Robot robot;
 	}
 	
 	
+	public static void press(){
+		
+		Robot r = getRobot();
+		
+		r.mousePress(InputEvent.BUTTON1_DOWN_MASK);
+		
+	}
 	
+	public static void release(){
+		
+		Robot r = getRobot();
+		
+		r.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
+		
+	}
 	
+	public static void setRobotDelay(int delay){
+		
+		Robot r = getRobot();
+		r.setAutoDelay(delay);
+		
+	}
 	
 	public static void main(String[] args) {
 		
